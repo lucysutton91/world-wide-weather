@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
 import { Grid, Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import config from '../config';
 
 export default class City extends Component {
   constructor(props){
     super(props)
     this.handleClick = this.handleClick.bind(this)
     this.state = {
-      weatherJSON: ''
+      weather: ''
     }
   }
-  componentDidMount(){
-    // it's returning something that isn't a json ??
-    // fetch(url)
-    // .then(res => {
-    //   return res.json()
-    // })
-    // .then(json => console.log(json))
+  componentDidMount() {
+    let appId = config.WEATHER_KEY
+    axios.get(`http://api.openweathermap.org/data/2.5/weather?id=${this.props.idNum}&APPID=${appId}`)
+      .then(res => {
+        const weather = res.data;
+        this.setState({ weather });
+      })
   }
   handleClick(event){
     console.log('click')
   }
   render () {
-    // console.log(this.state)
+    console.log(this.state)
     return (
       <Link to="/weatherdetail">
         <Panel>
