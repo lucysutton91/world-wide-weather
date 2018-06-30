@@ -35,7 +35,6 @@ import Landing from './components/Landing';
 const styles = theme => ({
   root: {
     textAlign: 'center',
-    paddingTop: theme.spacing.unit * 20,
   },
 });
 

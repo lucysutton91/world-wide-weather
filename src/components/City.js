@@ -12,20 +12,23 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import WeatherIcon from 'react-icons-weather';
 
 const styles = {
   card: {
-    maxWidth: 345,
+    // maxWidth: 345,
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
+  icon: {
+    fontSize: '1.5em'
+  }
 };
 
 
-export default class City extends Component {
+class City extends Component {
   constructor(props){
     super(props)
     this.state = store.getState()
@@ -49,45 +52,54 @@ export default class City extends Component {
 
   render () {
     const { classes } = this.props;
-    console.log('classes', classes)
     let weather = this.state.localWeather
+    console.log('classes', weather)
 
     if(weather){
       const name = weather.name
-      const temp = weather.main.temp
+      const temp = Math.floor(Number(weather.main.temp)) 
       const humidity = weather.main.humidity
+      const iconCode = weather.weather[0].id
+      console.log('icon code', iconCode)
       return (
-        <div>
-          <Card>
-            <CardMedia
-              image="../../public/cat.jpeg"
-              title="Contemplative Reptile"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="headline" component="h2">
-                Lizard
-              </Typography>
-              <Typography component="p">
-                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                across all continents except Antarctica
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
-            </CardActions>
-          </Card>
-        </div>
+        <Card className={classes.card}>
+          <CardMedia
+            component={Link} to={`/weatherdetail/${this.props.idNum}`}
+            className={classes.media}
+            image={this.props.imageUrl}
+          />
+          <CardContent>
+            
+            <Typography gutterBottom variant="subheading" component="h2">
+              {name}
+            </Typography>
+            <WeatherIcon className={classes.icon} name="owm" iconId={iconCode} flip="horizontal" rotate="90" />
+            <Typography gutterBottom variant="headline" component="h2">
+              {temp}°
+            </Typography>
+            <Typography component="p">
+              {weather.weather[0].description}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small" color="primary" component={Link} to={`/weatherdetail/${this.props.idNum}`}>
+              detailed weather report
+            </Button>
+          </CardActions>
+        </Card>
+       
       )
     } else {
       return <h1>loading</h1>
     }
   }
 }
+
+City.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(City);
 
 
 
