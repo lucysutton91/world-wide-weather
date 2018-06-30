@@ -35,8 +35,9 @@ class City extends Component {
   }
 
   componentDidMount() {
+   
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
-    let appId = config.WEATHER_KEY
+    let appId = process.env.REACT_APP_WEATHER_KEY
     let cityId = this.props.idNum
     // store.dispatch(fetchWeather(cityId, appId))
     return axios.get(`http://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${appId}&units=imperial`)
@@ -53,7 +54,6 @@ class City extends Component {
   render () {
     const { classes } = this.props;
     let weather = this.state.localWeather
-    console.log('classes', weather)
 
     if(weather){
       const name = weather.name
