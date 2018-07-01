@@ -13,28 +13,19 @@ const initialState = {
   detail: ''
 }
 
-
-
-
-// // Action Types
+// Action Types
 
 const GET_CITIES = 'GET_CITIES'
 const GET_WEATHER = 'GET_WEATHER'
 const GET_DETAIL = 'GET_DETAIL'
-// //const REMOVE_CITY = 'REMOVE_CITY'
 
-// // Action Creators
+// Action Creators
 
 
 export function getCities(cities) {
   const action = { type: GET_CITIES, cities };
   return action;
 }
-
-// // export function addCity(cityInfo) {
-// //   const action = { type: ADD_CITY, cityInfo };
-// //   return action;
-// // }
 
 export function getWeather(weather) {
   const action = { type: GET_WEATHER, weather};
@@ -46,7 +37,7 @@ export function getDetail(detail) {
   return action;
 }
 
-// // Thunk Creators
+// Thunk Creators
 
 export function fetchWeather(cityId, appId) {
 
@@ -83,11 +74,9 @@ function reducer(state = initialState, action) {
       break;
 
     case GET_WEATHER:
-      // newState = Object.assign({}, state, { currentWeather: action.weather });
       newState = Object.assign({}, state, { currentWeather: state.currentWeather.concat(action.weather) });
       break;
     case GET_DETAIL:
-      // newState = Object.assign({}, state, { currentWeather: action.weather });
       newState = Object.assign({}, state, { detail: action.detail });
       break;
     
@@ -97,12 +86,6 @@ function reducer(state = initialState, action) {
   }
   return newState;
 }
-
-
-// const rootReducer = combineReducers({
-//   weather: WeatherReducer,
-//   cities: CityReducer
-// })
 
 const store = createStore(
   reducer,

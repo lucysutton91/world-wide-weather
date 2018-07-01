@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import store, { fetchWeather } from '../store';
+import store from '../store';
 import axios from 'axios';
-// import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -14,9 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import WeatherIcon from 'react-icons-weather';
 
 const styles = {
-  card: {
-    // maxWidth: 345,
-  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
@@ -38,7 +34,6 @@ class City extends Component {
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
     let appId = process.env.REACT_APP_WEATHER_KEY
     let cityId = this.props.idNum
-    // store.dispatch(fetchWeather(cityId, appId))
     return axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${appId}&units=imperial`)
       .then(res => res.data)
       .then(weather => this.setState({ localWeather: weather }))
@@ -61,7 +56,7 @@ class City extends Component {
       const iconCode = weather.weather[0].id
       console.log('icon code', iconCode)
       return (
-        <Card className={classes.card}>
+        <Card>
           <CardMedia
             component={Link} to={`/weatherdetail/${this.props.idNum}`}
             className={classes.media}
@@ -99,51 +94,3 @@ City.propTypes = {
 };
 
 export default withStyles(styles)(City);
-
-
-
-// const styles = {
-//   card: {
-//     maxWidth: 345,
-//   },
-//   media: {
-//     height: 0,
-//     paddingTop: '56.25%', // 16:9
-//   },
-// };
-
-      // <Card className={classes.card}>
-      //   <CardMedia
-      //     className={classes.media}
-      //     image="/static/images/cards/contemplative-reptile.jpg"
-      //     title="Contemplative Reptile"
-      //   />
-      //   <CardContent>
-      //     <Typography gutterBottom variant="headline" component="h2">
-      //       Lizard
-      //     </Typography>
-      //     <Typography component="p">
-      //       Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-      //       across all continents except Antarctica
-      //     </Typography>
-      //   </CardContent>
-      //   <CardActions>
-      //     <Button size="small" color="primary">
-      //       Share
-      //     </Button>
-      //     <Button size="small" color="primary">
-      //       Learn More
-      //     </Button>
-      //   </CardActions>
-      // </Card>
-
-   // <Link to={`/weatherdetail/${this.props.idNum}`}>
-          {/* <Panel>
-            <Panel.Heading>{name}</Panel.Heading>
-            <Panel.Body>
-              <h1>{temp} F</h1>
-              <h2>{humidity}% humidity</h2>
-            </Panel.Body>
-          </Panel> */}
-          
-        {/* </Link> */}
