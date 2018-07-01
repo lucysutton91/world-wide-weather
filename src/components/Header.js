@@ -24,15 +24,7 @@ class Header extends React.Component {
   }
 
 
-  // handleSearchChange(event) {
-  //   console.log(event.target.value)
-  //   this.setState({ search: event.target.value });
-  // }
 
-  // handleSumbit() {
-  //   //search weather api
-  //   console.log('seaching')
-  // }
   
   render () {
     const { classes } = this.props;

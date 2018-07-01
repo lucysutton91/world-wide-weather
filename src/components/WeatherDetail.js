@@ -59,7 +59,6 @@ import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../withRoot';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import config from '../config';
 import store, { fetchDetail } from '../store';
 import WeatherIcon from 'react-icons-weather';
 
@@ -106,7 +105,7 @@ class Detail extends React.Component {
     const { classes } = this.props;
     const cities = this.state.cities
     let weather = this.state.detail
-    console.log(weather)
+
     if (weather){
       const name = weather.name
       const temp = weather.main.temp

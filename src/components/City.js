@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import config from '../config';
 import store, { fetchWeather } from '../store';
 import axios from 'axios';
 // import React from 'react';
@@ -40,7 +39,7 @@ class City extends Component {
     let appId = process.env.REACT_APP_WEATHER_KEY
     let cityId = this.props.idNum
     // store.dispatch(fetchWeather(cityId, appId))
-    return axios.get(`http://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${appId}&units=imperial`)
+    return axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${appId}&units=imperial`)
       .then(res => res.data)
       .then(weather => this.setState({ localWeather: weather }))
   }

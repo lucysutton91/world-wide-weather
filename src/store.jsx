@@ -51,7 +51,7 @@ export function getDetail(detail) {
 export function fetchWeather(cityId, appId) {
 
   return function thunk(dispatch) {
-      return axios.get(`http://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${appId}&units=imperial`)
+      return axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${appId}&units=imperial`)
           .then(res => res.data)
           .then(weather => {
               const action = getWeather(weather);
@@ -63,7 +63,7 @@ export function fetchWeather(cityId, appId) {
 export function fetchDetail(cityId, appId) {
 
   return function thunk(dispatch) {
-      return axios.get(`http://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${appId}&units=imperial`)
+      return axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${appId}&units=imperial`)
           .then(res => res.data)
           .then(detail => {
               const action = getDetail(detail);
