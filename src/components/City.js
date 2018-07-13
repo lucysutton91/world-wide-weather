@@ -11,6 +11,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import WeatherIcon from 'react-icons-weather';
+import config from '../config';
 
 const styles = {
   media: {
@@ -32,7 +33,8 @@ class City extends Component {
   componentDidMount() {
    
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
-    let appId = process.env.REACT_APP_WEATHER_KEY
+    // let appId = process.env.REACT_APP_WEATHER_KEY
+    let appId = config.WEATHER_KEY
     let cityId = this.props.idNum
     return axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&APPID=${appId}&units=imperial`)
       .then(res => res.data)
@@ -52,9 +54,7 @@ class City extends Component {
     if(weather){
       const name = weather.name
       const temp = Math.floor(Number(weather.main.temp)) 
-      const humidity = weather.main.humidity
       const iconCode = weather.weather[0].id
-      console.log('icon code', iconCode)
       return (
         <Card>
           <CardMedia
@@ -67,7 +67,7 @@ class City extends Component {
             <Typography gutterBottom variant="subheading" component="h2">
               {name}
             </Typography>
-            <WeatherIcon className={classes.icon} name="owm" iconId={iconCode} flip="horizontal" rotate="90" />
+            <WeatherIcon className={classes.icon} name="owm" iconId={iconCode.toString()} flip="horizontal" rotate="90" />
             <Typography gutterBottom variant="headline" component="h2">
               {temp}°
             </Typography>

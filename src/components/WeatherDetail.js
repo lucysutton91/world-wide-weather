@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import store, { fetchDetail } from '../store';
 import WeatherIcon from 'react-icons-weather';
+import config from '../config';
 
 const styles = theme => ({
   root: {
@@ -37,7 +38,8 @@ class Detail extends React.Component {
   }
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
-    let appId = process.env.REACT_APP_WEATHER_KEY
+    // let appId = process.env.REACT_APP_WEATHER_KEY
+    let appId = config.WEATHER_KEY
     let cityId = this.props.match.params.cityId
     store.dispatch(fetchDetail(cityId, appId))
   }
@@ -48,7 +50,6 @@ class Detail extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const cities = this.state.cities
     let weather = this.state.detail
 
     if (weather){
@@ -64,13 +65,13 @@ class Detail extends React.Component {
           <Grid item xs={12}>
             <h1>{name}</h1>
           </Grid>
-          <Grid item xs={12} sm={4}  alignItems="space-between">
-            <WeatherIcon className={classes.icon} name="owm" iconId={iconCode} flip="horizontal" rotate="90" />
+          <Grid item xs={12} sm={4}>
+            <WeatherIcon className={classes.icon} name="owm" iconId={iconCode.toString()} flip="horizontal" rotate="90" />
             <Typography className={classes.name} variant="subheading" component="h1">
               {description}
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={4} alignItems="space-between">
+          <Grid item xs={12} sm={4}>
             <Typography className={classes.temp} variant="headline" component="h2">
               {temp}°
             </Typography>
@@ -78,7 +79,7 @@ class Detail extends React.Component {
               {humidity}% humidity
             </Typography>
           </Grid>  
-          <Grid item xs={12} sm={4} alignItems="space-between">
+          <Grid item xs={12} sm={4}>
             <Typography className={classes.speed} variant="headline" component="h3">
               {windSpeed} 
             </Typography>
